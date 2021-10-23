@@ -11,6 +11,11 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link
+      href="//db.onlinewebfonts.com/c/94c8bdeebe0bc87f47efca8e508e2951?family=Iglesia"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <style>
     .canvas-container {
@@ -20,13 +25,15 @@
     }
     .canvas-container canvas {
       position: absolute;
-      left: 0;
+      left: 30%;
       width: auto;
       height: auto;
     }
   </style>
   <body>
-    <h1 id="status">Loading...</h1>
+    <h1 id="status" style="text-align: center; font-family: 'Iglesia'">
+      Loading...
+    </h1>
     <div class="container-fluid">
       <div class="canvas-container">
         <canvas id="output"></canvas>
@@ -180,7 +187,7 @@
           //--------------------------------------------------------------------
 
           glasses.position.x = face.annotations.midwayBetweenEyes[0][0];
-          glasses.position.y = -face.annotations.midwayBetweenEyes[0][1] + 20;
+          glasses.position.y = -face.annotations.midwayBetweenEyes[0][1] + 40;
           glasses.position.z =
             -camera.position.z + face.annotations.midwayBetweenEyes[0][2];
 
@@ -214,7 +221,7 @@
                 face.annotations.rightEyeUpper1[3][2]) **
                 2
           );
-          distanceFromEyes = 31;
+          distanceFromEyes = 28;
           glasses.scale.x = eyeDist / distanceFromEyes / 1.5;
           glasses.scale.y = eyeDist / distanceFromEyes;
           glasses.scale.z = eyeDist / distanceFromEyes;
@@ -230,6 +237,7 @@
         await setupWebcam();
         const video = document.getElementById("webcam");
         video.play();
+
         let videoWidth = video.videoWidth;
         let videoHeight = video.videoHeight;
         video.width = videoWidth;
