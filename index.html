@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Creating a Snapchat-Style Virtual Glasses Face Filter</title>
+    <title>THUG LIFE AR</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.4.0/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.1/dist/face-landmarks-detection.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.123.0/build/three.min.js"></script>
@@ -25,26 +25,56 @@
     }
     .canvas-container canvas {
       position: absolute;
-      left: 30%;
-      width: auto;
-      height: auto;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: 640px;
+    }
+    .button-center {
+      position: absolute;
+      bottom: -100px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: 600px;
+      height: 80px;
     }
   </style>
   <body>
-    <h1 id="status" style="text-align: center; font-family: 'Iglesia'">
+    <h1
+      id="status"
+      style="font-size: 8vw; text-align: center; font-family: 'Iglesia'"
+    >
       Loading...
     </h1>
-    <div class="container-fluid">
-      <div class="canvas-container">
-        <canvas id="output"></canvas>
-        <canvas id="overlay"></canvas>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="container-fluid">
+          <div class="canvas-container">
+            <canvas id="output"></canvas>
+            <canvas id="overlay"></canvas>
+          </div>
+          <video
+            id="webcam"
+            playsinline
+            style="visibility: hidden; width: auto; height: auto"
+          ></video>
+        </div>
+        <div>
+          <input
+            class="btn btn-dark button-center"
+            type="button"
+            value="PLAY/STOP"
+            onclick="play()"
+          />
+          <audio id="audio" src="model/dre.mp3"></audio>
+        </div>
       </div>
-      <video
-        id="webcam"
-        playsinline
-        style="visibility: hidden; width: auto; height: auto"
-      ></video>
     </div>
+
     <script>
       function setText(text) {
         document.getElementById("status").innerText = text;
@@ -221,7 +251,7 @@
                 face.annotations.rightEyeUpper1[3][2]) **
                 2
           );
-          distanceFromEyes = 28;
+          distanceFromEyes = 31;
           glasses.scale.x = eyeDist / distanceFromEyes / 1.5;
           glasses.scale.y = eyeDist / distanceFromEyes;
           glasses.scale.z = eyeDist / distanceFromEyes;
@@ -296,6 +326,20 @@
 
         trackFace();
       })();
+
+      var audio = document.getElementById("audio");
+      var isPlaying = false;
+
+      function play() {
+        isPlaying ? audio.pause() : audio.play();
+      }
+
+      audio.onplaying = function () {
+        isPlaying = true;
+      };
+      audio.onpause = function () {
+        isPlaying = false;
+      };
     </script>
   </body>
 </html>
