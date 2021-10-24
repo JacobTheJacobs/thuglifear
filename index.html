@@ -177,27 +177,32 @@
     <script>
       var i = 0;
 
-      function setText(text) {
-        document.getElementById("status").innerText = text;
-        if (i == 0) {
-          i = 1;
-          var elem = document.getElementById("myBar");
-          elem.style.textAlign = "center";
-          var width = 1;
-          var id = setInterval(frame, 1);
-          function frame() {
-            if (width >= 100) {
-              clearInterval(id);
-              elem.style.display = "none";
-            } else {
-              width++;
+      async function progressBar() {
+        return new Promise((resolve, reject) => {
+          if (i == 0) {
+            i = 1;
+            var elem = document.getElementById("myBar");
+            elem.style.textAlign = "center";
+            var width = 1;
+            var id = setInterval(frame, 1);
+            function frame() {
+              if (width >= 100) {
+                clearInterval(id);
+                elem.style.display = "none";
+              } else {
+                width++;
 
-              elem.style.width = width + "%";
+                elem.style.width = width + "%";
 
-              elem.innerHTML = width + "%";
+                elem.innerHTML = width + "%";
+              }
             }
           }
-        }
+        });
+      }
+
+      function setText(text) {
+        document.getElementById("status").innerText = text;
       }
 
       function drawLine(ctx, x1, y1, x2, y2) {
@@ -385,6 +390,8 @@
 
       (async () => {
         await setupWebcam();
+
+        progressBar();
         const video = document.getElementById("webcam");
         video.play();
 
