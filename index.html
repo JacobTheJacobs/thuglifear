@@ -104,8 +104,6 @@
     }
   </style>
   <body>
-    <br />
-
     <div class="card" id="photo">
       <h1
         id="status"
@@ -195,6 +193,11 @@
               if (width >= 100) {
                 clearInterval(id);
                 elem.style.display = "none";
+                elem.style.backgroundColor = "black";
+                elem.style.height = "0.01px";
+                myProgress.style.display = "none";
+                myProgress.style.backgroundColor = "black";
+                myProgress.style.height = "0.01px";
               } else {
                 width++;
 
