@@ -23,6 +23,22 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
   </head>
   <style>
+    @import url(//db.onlinewebfonts.com/c/94c8bdeebe0bc87f47efca8e508e2951?family=Iglesia);
+    @font-face {
+      font-family: "Iglesia";
+      src: url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.eot");
+      src: url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.eot?#iefix")
+          format("embedded-opentype"),
+        url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.woff2")
+          format("woff2"),
+        url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.woff")
+          format("woff"),
+        url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.ttf")
+          format("truetype"),
+        url("//db.onlinewebfonts.com/t/94c8bdeebe0bc87f47efca8e508e2951.svg#Iglesia")
+          format("svg");
+    }
+
     html {
       background-color: black !important;
     }
@@ -108,7 +124,7 @@
 
       <audio id="audio" src="model/dre.mp3"></audio>
     </div>
-
+    <br />
     <div id="capture" class="black">
       <button class="btn btn-light button-center" onclick="capture()">
         Share it with my hommies
@@ -141,7 +157,6 @@
     <script>
       function setText(text) {
         document.getElementById("status").innerText = text;
-        alert("Scroll Down!!!!!!!!!!");
       }
 
       function drawLine(ctx, x1, y1, x2, y2) {
