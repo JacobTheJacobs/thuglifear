@@ -94,12 +94,13 @@
 
     #myBar {
       width: 1%;
-      height: 30px;
+      height: 50px;
       background-color: white;
       color: black !important;
       font-family: "Iglesia" !important;
       font-weight: 800;
       border-radius: 10%;
+      font-size: 2rem;
     }
   </style>
   <body>
@@ -459,6 +460,7 @@
       })();
 
       var audio = document.getElementById("audio");
+      audio.volume = 0.6;
       var isPlaying = false;
       var musicBtn = document.getElementById("beast");
 
