@@ -88,14 +88,14 @@
     }
     #myProgress {
       width: 100%;
-      background-color: grey;
+      background-color: black;
       border-radius: 10%;
     }
 
     #myBar {
       width: 1%;
       height: 50px;
-      background-color: white;
+      background-color: black;
       color: black !important;
       font-family: "Iglesia" !important;
       font-weight: 800;
@@ -184,7 +184,10 @@
         return new Promise((resolve, reject) => {
           if (i == 0) {
             i = 1;
+            var myProgress = document.getElementById("myProgress");
             var elem = document.getElementById("myBar");
+            myProgress.style.backgroundColor = "grey";
+            elem.style.backgroundColor = "white";
             elem.style.textAlign = "center";
             var width = 1;
             var id = setInterval(frame, 1);
@@ -394,7 +397,6 @@
       (async () => {
         await setupWebcam();
 
-        progressBar();
         const video = document.getElementById("webcam");
         video.play();
 
@@ -459,6 +461,7 @@
         setText("Thug Life");
 
         trackFace();
+        progressBar();
       })();
 
       var audio = document.getElementById("audio");
