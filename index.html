@@ -16,19 +16,34 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
   </head>
   <style>
+    html {
+      background-color: black !important;
+    }
     body {
       background-color: black !important;
     }
     .card {
+      background-color: black !important;
+      height: 1000px;
+    }
+    .black {
+      background-color: black !important;
+    }
+    .container-fluid {
       background-color: black !important;
     }
     .canvas-container {
       position: relative;
       width: auto;
       height: auto;
+      background-color: black !important;
     }
     .canvas-container canvas {
       position: absolute;
@@ -36,60 +51,97 @@
       right: 0;
       margin-left: auto;
       margin-right: auto;
-      width: 640px;
+      width: 95%;
+      height: 600px;
     }
     .button-center {
-      position: absolute;
       bottom: -300px;
       left: 0;
       right: 0;
       margin-left: auto;
       margin-right: auto;
-      width: 600px;
+      width: 100%;
       height: 80px;
+      border: 1px solid grey;
+      font-weight: 800;
+      font-size: 2rem;
+      font-family: "Iglesia" !important;
+    }
+    #webcam {
+      background-color: black !important;
     }
   </style>
   <body>
-    <h1
-      id="status"
-      style="
-        color: #ffffff;
-        font-size: 8vw;
-        text-align: center;
-        font-family: 'Iglesia' !important;
-      "
-    >
-      Loading...
-    </h1>
-
-    <div class="card">
+    <div class="card" id="photo">
+      <h1
+        id="status"
+        style="
+          color: #ffffff;
+          font-size: 8vw;
+          text-align: center;
+          font-family: 'Iglesia' !important;
+        "
+      >
+        Loading...
+      </h1>
       <div class="card-body">
-        <div class="container-fluid">
-          <div class="canvas-container" id="out">
-            <canvas id="output"></canvas>
-            <canvas id="overlay"></canvas>
-          </div>
-          <video
-            id="webcam"
-            playsinline
-            style="visibility: hidden; width: auto; height: auto"
-          ></video>
+        <div class="canvas-container">
+          <canvas id="output"></canvas>
+          <canvas id="overlay"></canvas>
         </div>
-        <div>
-          <input
-            class="btn btn-light button-center"
-            type="button"
-            value="PLAY/STOP"
-            onclick="play()"
-          />
-          <audio id="audio" src="model/dre.mp3"></audio>
-        </div>
+        <video
+          id="webcam"
+          playsinline
+          style="visibility: hidden; width: auto; height: auto"
+        ></video>
       </div>
     </div>
+
+    <div class="black">
+      <input
+        id="beast"
+        class="btn btn-light button-center fa fa-home"
+        type="button"
+        value="Gangsta mode On"
+        onclick="play()"
+      />
+
+      <audio id="audio" src="model/dre.mp3"></audio>
+    </div>
+
+    <div id="capture" class="black">
+      <button class="btn btn-light button-center" onclick="capture()">
+        Share it with my hommies
+        <i class="bi bi-share"></i>
+      </button>
+    </div>
+
+    <script type="text/javascript">
+      var output1 = document.getElementById("output");
+      var overlay = document.getElementById("photo");
+
+      function capture() {
+        html2canvas(overlay, {
+          useCORS: true,
+          windowWidth: document.body.scrollWidth,
+          windowHeight: document.body.scrollHeight,
+          x: 0,
+          y: window.pageYOffset,
+        }).then((canvas) => {
+          var imageURL = canvas.toDataURL("image/png");
+          let a = document.createElement("a");
+          a.innerHTML = "thuglife";
+          a.href = imageURL;
+          a.download = "thuglife";
+          a.click();
+        });
+      }
+    </script>
 
     <script>
       function setText(text) {
         document.getElementById("status").innerText = text;
+        alert("Scroll Down!!!!!!!!!!");
       }
 
       function drawLine(ctx, x1, y1, x2, y2) {
@@ -184,7 +236,7 @@
           console.log(face.annotations);
 
           cigarete.position.x = face.annotations.noseBottom[0][0] - 59;
-          cigarete.position.y = -face.annotations.noseBottom[0][1] - 100;
+          cigarete.position.y = -face.annotations.noseBottom[0][1] - 150;
           cigarete.position.z =
             -camera.position.z + face.annotations.noseBottom[0][2];
 
@@ -229,7 +281,7 @@
           //--------------------------------------------------------------------
 
           glasses.position.x = face.annotations.midwayBetweenEyes[0][0];
-          glasses.position.y = -face.annotations.midwayBetweenEyes[0][1] + 40;
+          glasses.position.y = -face.annotations.midwayBetweenEyes[0][1];
           glasses.position.z =
             -camera.position.z + face.annotations.midwayBetweenEyes[0][2];
 
@@ -308,7 +360,11 @@
         renderer = new THREE.WebGLRenderer({
           canvas: document.getElementById("overlay"),
           alpha: true,
+          preserveDrawingBuffer: true,
         });
+
+        var strMime = "image/jpeg";
+        imgData = renderer.domElement.toDataURL(strMime);
 
         camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
         camera.position.x = videoWidth / 2;
@@ -341,8 +397,13 @@
 
       var audio = document.getElementById("audio");
       var isPlaying = false;
+      var musicBtn = document.getElementById("beast");
 
       function play() {
+        musicBtn.value === "Gangsta mode On"
+          ? (musicBtn.value = "Gangsta mode Off")
+          : (musicBtn.value = "Gangsta mode On");
+
         isPlaying ? audio.pause() : audio.play();
       }
 
