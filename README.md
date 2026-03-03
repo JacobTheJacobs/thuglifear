@@ -1,3 +1,1 @@
-## thuglifear
-
-TensorFlow.js-based web AR filter.
+Web-based AR face filter using TensorFlow.js.
